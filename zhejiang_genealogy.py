@@ -7,35 +7,65 @@ import io #操作内存中的文件对象，比如把网络下载的数据当成
 import matplotlib.pyplot as plt #Matplotlib 的子模块，专门用于绘图（柱状图、折线图、词云图等）。
 import time #用于添加延迟，防止被网站屏蔽。
 from bs4 import BeautifulSoup #导入 BeautifulSoup 库，用于解析 HTML 网页，从中提取信息。
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 
-# # 启动 Selenium 无头模式
-# options = webdriver.ChromeOptions()
-# options.add_argument("--headless")
-# options.add_argument("--no-sandbox")
-# options.add_argument("--disable-gpu")
-#
-# service = Service(CHROMEDRIVER_PATH)
-# driver = webdriver.Chrome(service=service, options=options)
-#
-# # 打开家谱网站
-# driver.get("https://jiapu.library.sh.cn/#/genealogyCenter")
-# time.sleep(5)  # 等待 JavaScript 渲染完成
-#
-# # 抓取第一页的家谱标题
+
+# 设置 chromedriver 路径
+CHROMEDRIVER_PATH = r"C:\Users\user\Desktop\thesis_data\chromedriver-win64\chromedriver.exe"
+
+# 启动浏览器（无头）
+options = Options()
+options.add_argument("--headless")
+options.add_argument("--disable-gpu")
+options.add_argument("--no-sandbox")
+
+service = Service(CHROMEDRIVER_PATH)
+driver = webdriver.Chrome(service=service, options=options)
+
+# 打开家谱中心网页
+driver.get("https://jiapu.library.sh.cn/#/genealogyCenter")
+print("✅ 成功打开网页，等待数据加载...")
+time.sleep(5)  # 等待 JavaScript 渲染
+
+# 模拟点击搜索
+search_button = driver.find_element(By.CLASS_NAME, "btn-search")
+search_button.click()
+print("🔍 已点击搜索按钮，等待家谱列表加载...")
+time.sleep(5)
+
+# 截图查看是否成功加载家谱数据
+driver.save_screenshot("genealogy_after_search.png")
+print("📸 已截图保存为 genealogy_after_search.png")
+
+
+
+
+
+
+
+
+
+
+
+# # 提取所有家谱标题（标题 class 是 .genealogy-title）
 # titles = []
 # elements = driver.find_elements(By.CLASS_NAME, "genealogy-title")
 # for elem in elements:
-#     titles.append(elem.text)
-#     print(elem.text)
+#     text = elem.text.strip()
+#     titles.append(text)
+#     print("📖", text)
 #
-# # 关闭浏览器
-# driver.quit()
-#
-# # 保存结果到 Excel
-# df = pd.DataFrame({'标题': titles})
-# df.to_excel("家谱标题示例.xlsx", index=False)
-# print("✅ 数据已保存为 Excel 文件")
-#
+# # 保存为 Excel
+# df = pd.DataFrame({'家谱标题': titles})
+# df.to_excel("第一页家谱标题.xlsx", index=False)
+# print("✅ 已保存为 Excel：第一页家谱标题.xlsx")
+
+# 关闭浏览器
+driver.quit()
+
 
 
 
