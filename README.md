@@ -11,14 +11,20 @@ creat tow .py for writing code
 [test.py](test.py)
 
 creat one .ipynb for visualization
+[zhejiang_genealogy_test.ipynb](zhejiang_genealogy_test.ipynb)
+
+实现了单页抓取的功能。
 
 需要解决数据字段不完全问题
 
-test记入实时，
-长test计入全部
+25/5/14
+
+解决了字段不完全的问题
+实现了指定起始页数，多页抓取的功能。
+
+接下来进行共计5187页的抓取
 
 
-[zhejiang_genealogy_test.ipynb](zhejiang_genealogy_test.ipynb)
 
 
 

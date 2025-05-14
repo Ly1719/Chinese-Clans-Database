@@ -1,3 +1,4 @@
+import tabnanny
 import requests #用于发送 HTTP 请求，从网页获取 HTML 内容。
 import pandas as pd #用于处理和存储结构化数据，比如表格、DataFrame、保存为 Excel 等。
 import re #导入正则表达式模块，用于从字符串中提取特定内容（如 URL 中的数字、姓氏等）。
@@ -147,6 +148,79 @@ from selenium import webdriver
 # print("✅ 已提取", len(df), "条记录，保存为 家谱第一页详细数据.xlsx")
 #
 # driver.quit()
+#test 5
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+import pandas as pd
+import time
+
+CHROMEDRIVER_PATH = r"C:\Users\user\Desktop\thesis_data\chromedriver-win64\chromedriver.exe"
+
+options = Options()
+options.add_argument("--headless")
+options.add_argument("--disable-gpu")
+options.add_argument("--no-sandbox")
+
+service = Service(CHROMEDRIVER_PATH)
+driver = webdriver.Chrome(service=service, options=options)
+
+driver.get("https://jiapu.library.sh.cn/#/genealogyCenter")
+print("✅ 成功打开网页，等待加载...")
+time.sleep(5)
+
+# 点击“确定”按钮
+from selenium.webdriver.common.action_chains import ActionChains
+
+# 等待“确定”按钮出现
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+try:
+    confirm_span = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.XPATH, "//span[text()='确定']"))
+    )
+    ActionChains(driver).move_to_element(confirm_span).click().perform()
+    print("✅ 已用 ActionChains 成功模拟点击‘确定’按钮")
+except Exception as e:
+    print("❌ 没有成功点击‘确定’：", e)
+    driver.save_screenshot("click_failed.png")
+    driver.quit()
+    exit()
+
+time.sleep(5)  # 等待家谱数据加载
+driver.save_screenshot("after_confirm_click.png")
+
+# 提取数据字段：谱名，责任者，姓氏，撰修时间，堂号，家谱简介
+data = []
+elements = driver.find_elements(By.XPATH, "//a[starts-with(@href, '#/GenealogySummary:')]")
+
+for el in elements:
+    spans = el.find_elements(By.TAG_NAME, "span")
+    if len(spans) < 6:
+        continue
+
+    # 提取文字，包括嵌套<i>的内容
+    def safe_text(span):
+        return span.get_attribute("innerText").strip()
+
+    data.append({
+        "谱名": safe_text(spans[0]),
+        "责任者": safe_text(spans[1]),
+        "姓氏": safe_text(spans[2]),
+        "撰修时间": safe_text(spans[3]),
+        "堂号": safe_text(spans[4]),
+        "家谱简介": safe_text(spans[5]),
+        "详情链接": "https://jiapu.library.sh.cn/" + el.get_attribute("href").lstrip("#/")
+    })
+
+# 保存结果
+df = pd.DataFrame(data)
+df.to_csv("家谱第一页六字段.csv", index=False, encoding="utf-8-sig")
+print("✅ 共提取", len(df), "条家谱记录，已保存为 CSV 文件")
+
+driver.quit()
 
 
 

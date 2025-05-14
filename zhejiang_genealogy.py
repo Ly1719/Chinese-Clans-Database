@@ -13,10 +13,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
 
-# 设置 chromedriver 路径
 CHROMEDRIVER_PATH = r"C:\Users\user\Desktop\thesis_data\chromedriver-win64\chromedriver.exe"
 
-# 启动浏览器（无头）
 options = Options()
 options.add_argument("--headless")
 options.add_argument("--disable-gpu")
@@ -25,46 +23,63 @@ options.add_argument("--no-sandbox")
 service = Service(CHROMEDRIVER_PATH)
 driver = webdriver.Chrome(service=service, options=options)
 
-# 打开家谱中心网页
 driver.get("https://jiapu.library.sh.cn/#/genealogyCenter")
-print("✅ 成功打开网页，等待数据加载...")
-time.sleep(5)  # 等待 JavaScript 渲染
-
-# 模拟点击搜索
-search_button = driver.find_element(By.CLASS_NAME, "btn-search")
-search_button.click()
-print("🔍 已点击搜索按钮，等待家谱列表加载...")
+print("✅ 成功打开网页，等待加载...")
 time.sleep(5)
 
-# 截图查看是否成功加载家谱数据
-driver.save_screenshot("genealogy_after_search.png")
-print("📸 已截图保存为 genealogy_after_search.png")
+# 点击“确定”按钮
+from selenium.webdriver.common.action_chains import ActionChains
 
+# 等待“确定”按钮出现
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
+try:
+    confirm_span = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.XPATH, "//span[text()='确定']"))
+    )
+    ActionChains(driver).move_to_element(confirm_span).click().perform()
+    print("✅ 已用 ActionChains 成功模拟点击‘确定’按钮")
+except Exception as e:
+    print("❌ 没有成功点击‘确定’：", e)
+    driver.save_screenshot("click_failed.png")
+    driver.quit()
+    exit()
 
+time.sleep(5)  # 等待家谱数据加载
+driver.save_screenshot("after_confirm_click.png")
 
+# 提取数据字段：谱名，责任者，姓氏，撰修时间，堂号，家谱简介
+data = []
+elements = driver.find_elements(By.XPATH, "//a[starts-with(@href, '#/GenealogySummary:')]")
 
+for el in elements:
+    spans = el.find_elements(By.TAG_NAME, "span")
+    if len(spans) < 6:
+        continue
 
+    # 提取文字，包括嵌套<i>的内容
+    def safe_text(span):
+        return span.get_attribute("innerText").strip()
 
+    data.append({
+        "谱名": safe_text(spans[0]),
+        "责任者": safe_text(spans[1]),
+        "姓氏": safe_text(spans[2]),
+        "撰修时间": safe_text(spans[3]),
+        "堂号": safe_text(spans[4]),
+        "家谱简介": safe_text(spans[5]),
+        "详情链接": "https://jiapu.library.sh.cn/" + el.get_attribute("href").lstrip("#/")
+    })
 
+# 保存结果
+df = pd.DataFrame(data)
+df.to_csv("家谱第一页.csv", index=False, encoding="utf-8-sig")
+print("✅ 共提取", len(df), "条家谱记录，已保存为 CSV 文件")
 
-
-
-# # 提取所有家谱标题（标题 class 是 .genealogy-title）
-# titles = []
-# elements = driver.find_elements(By.CLASS_NAME, "genealogy-title")
-# for elem in elements:
-#     text = elem.text.strip()
-#     titles.append(text)
-#     print("📖", text)
-#
-# # 保存为 Excel
-# df = pd.DataFrame({'家谱标题': titles})
-# df.to_excel("第一页家谱标题.xlsx", index=False)
-# print("✅ 已保存为 Excel：第一页家谱标题.xlsx")
-
-# 关闭浏览器
 driver.quit()
+
+
 
 
 
