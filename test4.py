@@ -10,10 +10,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# ==== 命令行参数 ====
-start_page = int(sys.argv[1]) if len(sys.argv) > 1 else 1
-num_pages = int(sys.argv[2]) if len(sys.argv) > 2 else 10
-
 # ==== Chrome 驱动配置 ====
 CHROMEDRIVER_PATH = r"C:\Users\m1780\Desktop\Thesis\data of clans\code\chromedriver-win64\chromedriver.exe"
 
@@ -123,7 +119,7 @@ except Exception as e:
 # ==== 保存数据 ====
 end_page = start_page + actual_pages - 1
 df = pd.DataFrame(all_data)
-filename = f"家谱_第{start_page}页起_至第{end_page}页_共{actual_pages}页.csv"
+filename = f"家谱_第{start_page}页起_至第{end_page}页.csv"
 df.to_csv(filename, index=False, encoding="utf-8-sig")
 print(f"✅ 完成：共提取 {len(df)} 条记录，保存为：{filename}")
 

@@ -234,9 +234,9 @@ import pandas as pd
 import time
 
 # ==== 设置参数 ====
-CHROMEDRIVER_PATH = r"C:\Users\m1780\Desktop\Thesis\data of clans\code\chromedriver-win64\chromedriver.exe"
-start_page = 60
-num_pages = 100  # 最大抓取页数（程序会在翻页失败或数据重复时提前停止）
+CHROMEDRIVER_PATH = r"C:\Users\user\Desktop\thesis_data\code\chromedriver-win64\chromedriver.exe"
+start_page = 2059
+num_pages = 10  # 最大抓取页数（程序会在翻页失败或数据重复时提前停止）
 
 # ==== 初始化浏览器 ====
 options = Options()
@@ -349,7 +349,7 @@ except Exception as e:
 # ==== 保存数据 ====
 df = pd.DataFrame(all_data)
 end_page = start_page + actual_pages - 1
-filename = f"家谱_第{start_page}页起_至第{end_page}页_共{actual_pages}页.csv"
+filename = f"家谱_第{start_page}页起_至第{end_page}页.csv"
 df.to_csv(filename, index=False, encoding="utf-8-sig")
 print(f"✅ 共抓取 {actual_pages} 页（第 {start_page}~{end_page} 页），共 {len(df)} 条记录，已保存为：{filename}")
 

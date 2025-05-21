@@ -31,6 +31,13 @@ creat one .ipynb for visualization
 进行共计5187页的实际抓取
 代码文件为 [grasp_genealogy.py](grasp_genealogy.py)
 
+25/5/20
+收集了5174页数据
+
+接下来需要合并，整理过滤
+
+
+
 
 
 

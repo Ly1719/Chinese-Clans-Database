@@ -23,8 +23,8 @@ import pandas as pd
 import time
 
 # ==== 设置参数 ====
-CHROMEDRIVER_PATH = r"C:\Users\m1780\Desktop\Thesis\data of clans\code\chromedriver-win64\chromedriver.exe"
-start_page = 1948
+CHROMEDRIVER_PATH = r"C:\Users\user\Desktop\thesis_data\code\chromedriver-win64\chromedriver.exe"
+start_page = 5175
 num_pages = 100  # 最大抓取页数（程序会在翻页失败或数据重复时提前停止）
 
 # ==== 初始化浏览器 ====

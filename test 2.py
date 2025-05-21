@@ -10,9 +10,9 @@ import pandas as pd
 import time
 
 # ✅ 设置 ChromeDriver 路径和要抓的页数范围
-CHROMEDRIVER_PATH = r"C:\Users\user\Desktop\thesis_data\chromedriver-win64\chromedriver.exe"
-start_page = 1      # 从第几页开始
-num_pages = 5      # 抓取几页（例如：抓1~5页）
+CHROMEDRIVER_PATH = r"C:\Users\user\Desktop\thesis_data\code\chromedriver-win64\chromedriver.exe"
+start_page = 3373      # 从第几页开始
+num_pages = 10      # 抓取几页（例如：抓1~5页）
 
 # ✅ 初始化浏览器
 options = Options()
