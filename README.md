@@ -29,7 +29,7 @@ creat one .ipynb for visualization
 25/5/20
 通过对照前后页第一行数据，解决了无法大规模抓取的问题
 进行共计5187页的实际抓取
-代码文件为 [grasp_genealogy.py](grasp_genealogy.py)
+代码文件为 [grasp_genealogy.py](genealogy A/grasp_genealogy.py)
 
 25/5/20
 收集了5174页数据
@@ -37,6 +37,13 @@ creat one .ipynb for visualization
 
 25/5/22
 清理好了文件
+
+制作面板数据
+顺序为
+[panel_genealogy_省市县.py](genealogy%20B/panel_genealogy_%E7%9C%81%E5%B8%82%E5%8E%BF.py)
+[panel_genealogy_cleaned_省市县.py](genealogy%20B/panel_genealogy_cleaned_%E7%9C%81%E5%B8%82%E5%8E%BF.py)
+[panel_genealogy_cleaned_省市.py](genealogy%20B/panel_genealogy_cleaned_%E7%9C%81%E5%B8%82.py)
+[panel_genealogy_cleaned_省.py](genealogy%20B/panel_genealogy_cleaned_%E7%9C%81.py)
 
 
 
