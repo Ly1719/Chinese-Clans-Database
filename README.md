@@ -6,12 +6,12 @@ add some raw data in github
 
 creat tow .py for writing code
 
-[zhejiang_genealogy.py](zhejiang_genealogy.py)
-[zhejiang_genealogy_test.py](zhejiang_genealogy_test.py)
-[test.py](test.py)
+[zhejiang_genealogy.py](raw data/test/zhejiang_genealogy.py)
+[zhejiang_genealogy_test.py](raw data/test/zhejiang_genealogy_test.py)
+[test.py](raw data/test/test.py)
 
 creat one .ipynb for visualization
-[zhejiang_genealogy_test.ipynb](zhejiang_genealogy_test.ipynb)
+[zhejiang_genealogy_test.ipynb](raw data/test/zhejiang_genealogy_test.ipynb)
 
 实现了单页抓取的功能。
 需要解决数据字段不完全问题
@@ -33,8 +33,11 @@ creat one .ipynb for visualization
 
 25/5/20
 收集了5174页数据
-
 接下来需要合并，整理过滤
+
+25/5/22
+清理好了文件
+
 
 
 

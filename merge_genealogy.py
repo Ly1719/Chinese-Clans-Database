@@ -1,33 +1,39 @@
 import os
 import pandas as pd
 
-# ==== 设置参数 ====
-folder = "."  # 当前目录
-output_file = "家谱_总表_合并.csv"
+# ==== 设置路径 ====
+folder = "./"  # 你可以改为数据所在的具体目录路径
+output_file = "data_merge_genealogy.csv"
 
-# ==== 查找所有CSV文件 ====
+# ==== 查找符合命名规则的文件 ====
 csv_files = [f for f in os.listdir(folder) if f.startswith("家谱_第") and f.endswith(".csv")]
-csv_files.sort()  # 按文件名顺序排序
+csv_files.sort()
 
-print(f"📂 找到 {len(csv_files)} 个待合并的 CSV 文件")
-
-# ==== 读取并合并 ====
+# ==== 初始化合并逻辑 ====
 df_list = []
+common_cols = None
 
 for file in csv_files:
     try:
-        df = pd.read_csv(os.path.join(folder, file), encoding="utf-8-sig")
-        df["来源文件"] = file  # 可选：加一列记录来源文件
+        file_path = os.path.join(folder, file)
+        df = pd.read_csv(file_path, encoding="utf-8-sig")
+
+        # 更新公共列（第一次取全部，之后与前面的做交集）
+        if common_cols is None:
+            common_cols = set(df.columns)
+        else:
+            common_cols &= set(df.columns)
+
         df_list.append(df)
     except Exception as e:
-        print(f"❌ 读取文件 {file} 时失败：{e}")
+        print(f"❌ 无法读取 {file}，错误：{e}")
 
-# ==== 合并 & 去重 ====
-if df_list:
-    df_total = pd.concat(df_list, ignore_index=True)
-    df_total.drop_duplicates(inplace=True)
-
-    df_total.to_csv(output_file, index=False, encoding="utf-8-sig")
-    print(f"✅ 合并完成，共 {len(df_total)} 条记录，已保存为：{output_file}")
+# ==== 合并并保留公共列 ====
+if df_list and common_cols:
+    common_cols = list(common_cols)
+    merged_df = pd.concat([df[common_cols] for df in df_list], ignore_index=True)
+    merged_df.to_csv(output_file, index=False, encoding="utf-8-sig")
+    print(f"✅ 合并完成，生成文件：{output_file}，共 {len(merged_df)} 条记录，列：{common_cols}")
 else:
-    print("⚠️ 没有读取到任何有效数据，未生成合并文件")
+    print("⚠️ 没有成功读取或匹配到任何公共列，未生成文件。")
+
