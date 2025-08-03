@@ -27,6 +27,6 @@ def clean_time_numeric(raw):
 df["撰修时间_纯数字"] = df["撰修时间"].apply(clean_time_numeric)
 
 # 可选保存结果
-df.to_csv("1.1 genealogy.csv", index=False, encoding="utf-8-sig")
+df.to_csv("1.1_genealogy.csv", index=False, encoding="utf-8-sig")
 
 
