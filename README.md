@@ -29,22 +29,7 @@ The **Chinese Clans Database** aggregates and harmonizes genealogical archives i
 
 ---
 
-## 4. Repository Structure
-Chinese-Clans-Database/
-├── README.md
-├── src/
-├── data/
-├── notebooks/
-├── figure/
-├── reports/
-├── genealogy_cross-section_2023.csv
-├── genealogy_panel.csv
-├── docs/
-└── .idea/
-
----
-
-## 5. Possible Use Cases
+## 4. Possible Use Cases
 Economics: Investigate informal institutions, clan networks, and rural cooperation.
 
 Sociology: Explore cultural persistence and kinship across generations.
@@ -55,12 +40,12 @@ History & Demography: Reconstruct social and demographic evolution using genealo
 
 ---
 
-## 7. Dependencies
+## 5. Dependencies
 Python 3.13  
 
 ---
 
-## 8. Citation
+## 6. Citation
 If you use this dataset, please cite:
 
 Yan Liao. (2025). Chinese Clans Database. GitHub Repository.
