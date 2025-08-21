@@ -41,7 +41,7 @@ Chinese-Clans-Database/
 ├── genealogy_panel.csv
 ├── docs/
 └── .idea/
-
+---
 ## 5. Possible Use Cases
 Economics: Investigate informal institutions, clan networks, and rural cooperation.
 
@@ -50,10 +50,10 @@ Sociology: Explore cultural persistence and kinship across generations.
 Political Science: Analyze local governance and informal community structures.
 
 History & Demography: Reconstruct social and demographic evolution using genealogical records.
-
+---
 ## 7. Dependencies
 Python 3.13  
-
+---
 ## 8. Citation
 If you use this dataset, please cite:
 
