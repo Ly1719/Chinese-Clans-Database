@@ -9,10 +9,10 @@ The Chinese Clans Database is built upon intensive web scraping of genealogical 
 
 
 - Shanghai Library holds the world’s most comprehensive collection of Chinese genealogies — covering more than 100,000 genealogical records across hundreds of surnames. 
-- From these, I scraped metadata from approximately **100,000 genealogy records**, extracting titles, compilers, surnames, compilation years, and geographic information.  
+- From these, I scraped metadata from approximately 100,000 genealogy records, extracting titles, compilers, surnames, compilation years, and geographic information.  
 - I processed and standardized the data to create:  
   - A **cross-sectional dataset** of city-level genealogical counts as of 2023.  
-  - A **panel dataset** capturing annual changes at both the **province and city levels**, covering over **300+ cities**.  
+  - A **panel dataset** capturing annual changes at both the province and city levels, covering over 300+ cities.  
 - The entire pipeline—from web scraping to data cleaning, panel construction, and merging with socioeconomic indicators—was implemented by me using **Python**, ensuring reproducibility, transparency, and academic rigor.
 
 ---
