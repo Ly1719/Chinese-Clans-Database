@@ -39,7 +39,7 @@ History & Demography: Reconstruct social and demographic evolution using genealo
 ---
 
 ## 4. Dependencies
-Python 3.13  
+Python 3.11  
 
 ---
 
