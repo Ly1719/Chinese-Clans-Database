@@ -1,6 +1,6 @@
 # Chinese Clans Database
 
-**A city–year panel dataset of Chinese clan genealogies (族谱), built by scraping all genealogical records preserved in the Shanghai Library (about 100,000+ entries), covering the entire collection from the earliest available records up to 2024, and organized into over 300 city-level panels for quantitative research.**
+**A city–year panel dataset of Chinese clan genealogies (族谱), built by scraping all genealogical records preserved in the Shanghai Library (about 100,000+ entries), covering the entire collection from the earliest available records up to 2024, and organized into city-level panel dataset for quantitative research.**
 
 ---
 
